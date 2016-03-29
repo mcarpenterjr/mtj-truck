@@ -1,24 +1,40 @@
-function about() {
-  var name = ko.observable(model.about.name),
- nickName = ko.observable(model.about.shortName),
- phone = ko.observable(model.about.contacts.phone),
- email = ko.observable(model.about.contacts.email),
- breifAbout = ko.observable(model.about.short),
- services = ko.observable(model.about.services),
- badge = ko.observable(model.about.mainPic);
-}
+var appInit = function() {
+  var self = this;
 
-function workExp() {
+  function dispMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 17,
+    mapTypeId: google.maps.MapTypeId.HYBRID,
+    center: {
+      lat: 41.176,
+      lng: -73.1615,
+    },
+    disableDefaultUI: true
+  });
 
-}
+  var infowindow = new google.maps.InfoWindow();
+  var service = new google.maps.places.PlacesService(map);
 
-function education() {
+  service.getDetails({
+    placeId: 'ChIJz88P1scN6IkRW_KuFCMb-uY'
+  }, function(place, status) {
+    if (status === google.maps.places.PlacesServiceStatus.OK) {
+      var marker = new google.maps.Marker({
+        map: map,
+        position: place.geometry.location
+      });
+      google.maps.event.addListener(marker, 'click', function() {
+        infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+          'Place ID: ' + place.place_id + '<br>' +
+          place.formatted_address + '</div>');
+        infowindow.open(map, this);
+      });
+    }
+  });
+  }
 
-}
-
-function projects() {
-
-}
+  // Fires Up the Map.
+  self.map = dispMap();
 
 
 $(document).ready(function() {
@@ -26,13 +42,27 @@ $(document).ready(function() {
   $(".button-collapse").sideNav();
 
   /* Face Book JS */
-  $.ajaxSetup({ cache: true });
-    $.getScript('https://connect.facebook.net/en_US/sdk.js', function(){
-      FB.init({
-        appId: '{1078294885527262}',
-        version: 'v2.5' // or v2.0, v2.1, v2.2, v2.3
-      });
-      $('#loginbutton,#feedbutton').removeAttr('disabled');
-      //FB.getLoginStatus(updateStatusCallback);
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '1078294885527262',
+      xfbml: true,
+      version: 'v2.5'
     });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 });
+};
+
+var loadError = function() {
+  Materialize.toast('Trouble Getting Directions.', 5000, 'rounded');
+};
