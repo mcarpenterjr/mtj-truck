@@ -1,4 +1,4 @@
-var appInit = function() {
+var map = function() {
   var self = this;
 
   function dispMap() {
@@ -35,37 +35,36 @@ var appInit = function() {
 
   // Fires Up the Map.
   self.map = dispMap();
-
-
-  $(document).ready(function() {
-    $('.parallax').parallax();
-    $(".button-collapse").sideNav();
-
-    /* Face Book JS */
-    window.fbAsyncInit = function() {
-      FB.init({
-        appId: '1078294885527262',
-        xfbml: true,
-        version: 'v2.5'
-      });
-    };
-
-    (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) {
-        return;
-      }
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/en_US/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  });
 };
 
 var loadError = function() {
   Materialize.toast('Trouble Getting Directions.', 5000, 'rounded');
 };
+
+$(document).ready(function() {
+  $('.parallax').parallax();
+  $(".button-collapse").sideNav();
+
+  /* Face Book JS */
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId: '1078294885527262',
+      xfbml: true,
+      version: 'v2.5'
+    });
+  };
+
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {
+      return;
+    }
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+});
 
 /* TODO: Create get directions function using geo location*/
 /* Start with this html --> */
