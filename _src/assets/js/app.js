@@ -44,6 +44,10 @@ var loadError = function() {
 $(document).ready(function() {
   $('.parallax').parallax();
   $(".button-collapse").sideNav();
+  $('.slider').slider( {
+    full_width: true,
+    indicators: false,
+  });
 
   /* Face Book JS */
   window.fbAsyncInit = function() {
