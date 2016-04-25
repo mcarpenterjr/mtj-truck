@@ -43,6 +43,7 @@ var loadError = function() {
 
 $(document).ready(function() {
   $('.parallax').parallax();
+  $('.materialboxed').materialbox();
   $(".button-collapse").sideNav();
   $('.slider').slider( {
     full_width: true,
