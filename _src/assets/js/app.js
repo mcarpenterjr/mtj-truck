@@ -46,6 +46,7 @@ $(document).ready(function() {
   $('.materialboxed').materialbox();
   $(".button-collapse").sideNav();
   $('.slider').slider( {
+    height: 600,
     full_width: true,
     indicators: false,
   });
